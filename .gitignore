@@ -1,0 +1,24 @@
+# Python bytecode and cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Configuration files with sensitive data
+config/config.yaml
+
+# Logs
+*.log
+
+# Virtual environment (if you use one)
+venv/
+env/
+.env
+
+# IDE-specific files
+.idea/
+.vscode/
+
+# Miscellaneous
+*.DS_Store
+*.swp
