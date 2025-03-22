@@ -1,162 +1,128 @@
-🚀 MCP Twitter Server (Mock Implementation)
-This project implements a Model Context Protocol (MCP) server that enables an AI assistant (e.g., Claude, ChatGPT) to interact with a mock Twitter/X API. It simulates Twitter functionality without requiring real API credentials, making it a cost-free solution for demonstration purposes.
+# MCP Twitter Server with OpenAI Integration
 
-🔥 Features
-✅ #FetchTweetByID – Simulates retrieving a tweet using a given ID.
-✅ #SearchTweetsByQuery – Simulates searching tweets based on a keyword or phrase.
-✅ #ContextManagement – Stores and retrieves API response data for AI interaction continuity.
+This project implements a **Model Context Protocol (MCP)** server to enable an AI assistant, powered by OpenAI, to interact with a mock Twitter/X API. It fulfills the internship assignment requirement to integrate an AI agent like Claude (using OpenAI instead) with an application. The server simulates Twitter functionality, processes responses with OpenAI’s GPT-3.5-turbo, and includes unit tests for reliability.
 
-📂 #ProjectStructure
-graphql
-Copy
-Edit
+## Features
+- **Fetch Tweet by ID**: Retrieve a mock tweet using a specified ID.
+- **Search Tweets by Query**: Search for mock tweets based on a keyword.
+- **Context Management**: Store and retrieve data for AI continuity.
+- **OpenAI Integration**: Analyze server responses using OpenAI’s API (or a mock fallback).
+- **Unit Tests**: Verify server and mock Twitter client functionality.
+
+## Project Structure
 mcp-twitter-server/
-├── src/                    # Source code  
-│   ├── main.py             # Server entry point  
-│   ├── mcp_server.py       # MCP server with API endpoints  
-│   ├── twitter_client.py   # Mock Twitter API client  
-│   ├── context_manager.py  # Context storage for AI  
-│   └── utils.py            # Configuration loader  
-├── config/                 # Configuration  
-│   └── config.yaml         # Server settings (host, port)  
-├── docs/                   # Documentation  
-│   ├── README.md           # This file  
-│   └── demo_slides.pdf     # Demo presentation (or video link)  
-├── requirements.txt        # Python dependencies  
-└── .gitignore              # Files to exclude from git  
-🛠 #Prerequisites
-#Python 3.6 or higher
-#Git (for cloning the repository)
-#Terminal (e.g., Command Prompt, Bash)
-⚡ #Installation & Setup
-1️⃣ #CloneTheRepo
+├── src/                    # Source code
+│   ├── main.py             # Server entry point
+│   ├── mcp_server.py       # MCP server with API endpoints
+│   ├── twitter_client.py   # Mock Twitter API client
+│   ├── openai_agent.py     # OpenAI agent for interaction
+│   ├── context_manager.py  # Context storage for AI
+│   └── utils.py            # Configuration loader
+├── config/                 # Configuration
+│   └── config.yaml         # Server settings (host, port)
+├── tests/                  # Unit tests
+│   ├── test_mcp_server.py  # Tests for MCPServer
+│   └── test_twitter_client.py  # Tests for TwitterClient
+├── docs/                   # Documentation
+│   ├── README.md           # This file
+│   └── demo_slides.pdf     # Demo presentation (optional)
+├── requirements.txt        # Python dependencies
+└── .gitignore              # Files to exclude from git
+
+text
+
+Collapse
+
+Wrap
+
+Copy
+
+## Prerequisites
+- Python 3.10 or higher
+- Git
+- Terminal (e.g., Command Prompt on Windows)
+- OpenAI API key (optional; mock mode available)
+
+## Setup Instructions
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/VarshithGaddam/mcp-twitter-server.git
+   cd mcp-twitter-server
+Create Virtual Environment:
 bash
-Copy
-Edit
-git clone https://github.com/yourusername/mcp-twitter-server.git  
-cd mcp-twitter-server  
-(Replace yourusername with your GitHub username.)
 
-2️⃣ #CreateVirtualEnv
+Collapse
+
+Wrap
+
+Copy
+python -m venv venv
+Windows: venv\Scripts\activate
+Linux/MacOS: source venv/bin/activate
+Install Dependencies:
 bash
+
+Collapse
+
+Wrap
+
 Copy
-Edit
-python -m venv venv  
-# Activate it:
-# Windows: 
-venv\Scripts\activate  
-# Linux/MacOS:
-source venv/bin/activate  
-3️⃣ #InstallDependencies
+pip install -r requirements.txt
+Run the Server:
 bash
+
+Collapse
+
+Wrap
+
 Copy
-Edit
-pip install -r requirements.txt  
-4️⃣ #RunTheServer
+python src/main.py
+Server runs on http://localhost:8081.
+OpenAI Integration
+The project uses OpenAI’s GPT-3.5-turbo to process server responses (src/openai_agent.py).
+
+Running the OpenAI Agent
+Set your OpenAI API key (get from platform.openai.com):
 bash
-Copy
-Edit
-python src/main.py  
-📌 The server starts at http://localhost:8081
-Expected Output:
 
-csharp
+Collapse
+
+Wrap
+
 Copy
-Edit
- * Running on http://127.0.0.1:8081  
- * Running on http://[your-local-ip]:8081  
-🔗 #Usage (API Requests)
-📝 #FetchTweet
+set OPENAI_API_KEY=your-api-key-here
+Start the server (in one terminal):
 bash
-Copy
-Edit
-curl -X POST http://localhost:8081/mcp/context -H "Content-Type: application/json" -d "{\"action\": \"fetch_tweet\", \"tweet_id\": \"123\"}"
-📌 Response:
 
-json
+Collapse
+
+Wrap
+
 Copy
-Edit
-{
-  "status": "success",
-  "data": {
-    "tweet_id": "123",
-    "text": "This is a mock tweet with ID 123!",
-    "author": "user2",
-    "created_at": "2025-03-16 18:00:00"
-  }
-}
-🔍 #SearchTweets
+python src/main.py
+Run the agent (in another terminal):
 bash
-Copy
-Edit
-curl -X POST http://localhost:8081/mcp/context -H "Content-Type: application/json" -d "{\"action\": \"search_tweets\", \"query\": \"python\"}"
-📌 Response:
 
-json
+Collapse
+
+Wrap
+
 Copy
-Edit
-{
-  "status": "success",
-  "data": {
-    "query": "python",
-    "results": [
-      {
-        "tweet_id": "4567",
-        "text": "Mock result for 'python': AI 42",
-        "author": "mockbot",
-        "created_at": "2025-03-16 18:00:01"
-      }
-    ]
-  }
-}
-🗂 #GetContext
+python src/openai_agent.py
+Fetches tweet "123", searches for "python", retrieves context.
+Without a key, it uses a mock OpenAI.
+Testing
+Unit tests ensure functionality:
+
+tests/test_mcp_server.py: Tests server endpoints.
+tests/test_twitter_client.py: Tests mock Twitter data.
+Running Tests
 bash
+
+Collapse
+
+Wrap
+
 Copy
-Edit
-curl -X POST http://localhost:8081/mcp/context -H "Content-Type: application/json" -d "{\"action\": \"get_context\", \"key\": \"123\"}"
-📌 Response (after fetching tweet 123):
-
-json
-Copy
-Edit
-{
-  "status": "success",
-  "data": {
-    "tweet_id": "123",
-    "text": "This is a mock tweet with ID 123!",
-    "author": "user2",
-    "created_at": "2025-03-16 18:00:00"
-  }
-}
-🌍 #RootEndpoint
-Visit http://localhost:8081/ in a browser to see:
-
-json
-Copy
-Edit
-{"message": "Welcome to MCP Twitter Server! Use /mcp/context for API calls."}
-🎥 #Demo
-📌 A demo is available in docs/demo_slides.pdf (or a video link: [insert link here]).
-
-🤖 #WhyMockImplementation?
-This project uses a mock TwitterClient to simulate Twitter API responses, avoiding the need for paid API access. The code is structured to easily integrate with a real Twitter API (e.g., using tweepy) by replacing twitter_client.py with authentic API calls if credentials are available.
-
-🔌 #ExtendingToRealTwitterAPI
-To use the real Twitter API:
-1️⃣ Obtain credentials from the Twitter Developer Portal.
-2️⃣ Install Tweepy:
-
-bash
-Copy
-Edit
-pip install tweepy  
-3️⃣ Update twitter_client.py with real API calls.
-4️⃣ Add credentials to config.yaml.
-
-🔖 #Notes
-✅ Built and tested on Windows (port 8081 to avoid conflicts).
-✅ Designed for internship assignments to demonstrate MCP functionality.
-✅ No external API costs incurred.
-
-📜 #License
-This project is for educational purposes only and not licensed for production use.
+python -m unittest tests/test_mcp_server.py
+python -m unittest tests/test_twitter_client.py
