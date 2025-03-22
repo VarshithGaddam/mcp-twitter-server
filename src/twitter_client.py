@@ -24,4 +24,4 @@ class TwitterClient:
             }
             for _ in range(random.randint(1, 3))  # 1-3 results
         ]
-        return {"query": query, "results": results}
+        return {"query": query, "results": results} 
