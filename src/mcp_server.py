@@ -1,11 +1,11 @@
 from flask import Flask, request, jsonify
-from context_manager import ContextManager
+from .context_manager import ContextManager  # Relative import
 
 class MCPServer:
-    def __init__(self, twitter_client, host="0.0.0.0", port=8081):
+    def __init__(self, twitter_client, host="0.0.0.0", port=8081, context_manager=None):
         self.app = Flask(__name__)
         self.twitter_client = twitter_client
-        self.context_manager = ContextManager()
+        self.context_manager = context_manager if context_manager is not None else ContextManager()
         self.host = host
         self.port = port
         self._register_routes()
@@ -37,7 +37,6 @@ class MCPServer:
                 return jsonify({"status": "success", "data": result})
             return jsonify({"status": "error", "message": "Invalid action"})
 
-        # Added root route to avoid 404 in browser
         @self.app.route("/", methods=["GET"])
         def home():
             return jsonify({"message": "Welcome to MCP Twitter Server! Use /mcp/context for API calls."})
